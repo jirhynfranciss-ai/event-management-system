@@ -1,0 +1,11 @@
+# Git doesn't track empty folders, so we add placeholder files
+
+# Windows:
+echo. > backend/uploads/.gitkeep
+echo. > backend/uploads/qrcodes/.gitkeep
+echo. > backend/certificates/.gitkeep
+
+# Mac/Linux:
+touch backend/uploads/.gitkeep
+touch backend/uploads/qrcodes/.gitkeep
+touch backend/certificates/.gitkeep
