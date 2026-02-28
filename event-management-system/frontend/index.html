@@ -1,0 +1,627 @@
+<!-- frontend/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📅 Event Management & Registration System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- NAVIGATION BAR                              -->
+    <!-- ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-calendar-alt"></i>
+            <span>EventMS</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <!-- Dynamic navigation will be inserted here -->
+        </div>
+        <div class="nav-user" id="navUser">
+            <!-- User info will be inserted here -->
+        </div>
+        <button class="nav-toggle" id="navToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT AREA                           -->
+    <!-- ============================================ -->
+    <main class="main-content" id="mainContent">
+
+        <!-- ======================================== -->
+        <!-- LOGIN / REGISTER PAGE                   -->
+        <!-- ======================================== -->
+        <section class="page active" id="authPage">
+            <div class="auth-container">
+                <!-- Login Form -->
+                <div class="auth-card" id="loginCard">
+                    <div class="auth-header">
+                        <i class="fas fa-calendar-check auth-icon"></i>
+                        <h2>Welcome Back!</h2>
+                        <p>Login to Event Management System</p>
+                    </div>
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-envelope"></i> Email
+                            </label>
+                            <input type="email" id="loginEmail"
+                                   placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <input type="password" id="loginPassword"
+                                   placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </form>
+                    <div class="auth-footer">
+                        <p>Don't have an account?
+                            <a href="#" onclick="showRegisterForm()">Register here</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Register Form -->
+                <div class="auth-card hidden" id="registerCard">
+                    <div class="auth-header">
+                        <i class="fas fa-user-plus auth-icon"></i>
+                        <h2>Create Account</h2>
+                        <p>Join the Event Management System</p>
+                    </div>
+                    <form id="registerForm" class="auth-form">
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-user"></i> Full Name
+                            </label>
+                            <input type="text" id="regName"
+                                   placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-envelope"></i> Email
+                            </label>
+                            <input type="email" id="regEmail"
+                                   placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <input type="password" id="regPassword"
+                                   placeholder="Min 6 characters" required
+                                   minlength="6">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-graduation-cap"></i> Course
+                                </label>
+                                <select id="regCourse">
+                                    <option value="">Select Course</option>
+                                    <option value="BSIT">BSIT</option>
+                                    <option value="BSCS">BSCS</option>
+                                    <option value="BSIS">BSIS</option>
+                                    <option value="BSA">BSA</option>
+                                    <option value="BSBA">BSBA</option>
+                                    <option value="BSEd">BSEd</option>
+                                    <option value="BSEE">BSEE</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-layer-group"></i> Year Level
+                                </label>
+                                <select id="regYear">
+                                    <option value="">Select Year</option>
+                                    <option value="1st">1st Year</option>
+                                    <option value="2nd">2nd Year</option>
+                                    <option value="3rd">3rd Year</option>
+                                    <option value="4th">4th Year</option>
+                                    <option value="5th">5th Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-venus-mars"></i> Gender
+                            </label>
+                            <select id="regGender">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">
+                            <i class="fas fa-user-plus"></i> Register
+                        </button>
+                    </form>
+                    <div class="auth-footer">
+                        <p>Already have an account?
+                            <a href="#" onclick="showLoginForm()">Login here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- DASHBOARD PAGE (Admin)                  -->
+        <!-- ======================================== -->
+        <section class="page" id="dashboardPage">
+            <div class="page-header">
+                <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+                <p>Overview of the Event Management System</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid" id="dashboardStats">
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="statEvents">0</h3>
+                        <p>Total Events</p>
+                    </div>
+                </div>
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="statStudents">0</h3>
+                        <p>Total Students</p>
+                    </div>
+                </div>
+                <div class="stat-card stat-warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="statRegistrations">0</h3>
+                        <p>Total Registrations</p>
+                    </div>
+                </div>
+                <div class="stat-card stat-info">
+                    <div class="stat-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="statCertificates">0</h3>
+                        <p>Certificates Issued</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3><i class="fas fa-chart-bar"></i> Events by Status</h3>
+                    <canvas id="eventStatusChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3><i class="fas fa-chart-pie"></i> Event Categories</h3>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card">
+                <h3><i class="fas fa-clock"></i> Recent Registrations</h3>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Event</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentRegistrationsTable">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- EVENTS PAGE                             -->
+        <!-- ======================================== -->
+        <section class="page" id="eventsPage">
+            <div class="page-header">
+                <h1><i class="fas fa-calendar-alt"></i> Events</h1>
+                <div class="page-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="eventSearch"
+                               placeholder="Search events..."
+                               oninput="searchEvents()">
+                    </div>
+                    <select id="eventFilter" onchange="filterEvents()">
+                        <option value="">All Status</option>
+                        <option value="upcoming">Upcoming</option>
+                        <option value="ongoing">Ongoing</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <button class="btn btn-primary admin-only"
+                            onclick="showCreateEventModal()">
+                        <i class="fas fa-plus"></i> Create Event
+                    </button>
+                </div>
+            </div>
+
+            <!-- Events Grid -->
+            <div class="events-grid" id="eventsGrid">
+                <!-- Dynamic event cards -->
+            </div>
+
+            <!-- Loading spinner -->
+            <div class="loading hidden" id="eventsLoading">
+                <div class="spinner"></div>
+                <p>Loading events...</p>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- MY REGISTRATIONS PAGE (Student)         -->
+        <!-- ======================================== -->
+        <section class="page" id="myRegistrationsPage">
+            <div class="page-header">
+                <h1><i class="fas fa-clipboard-check"></i> My Registrations</h1>
+            </div>
+            <div class="registrations-list" id="myRegistrationsList">
+                <!-- Dynamic content -->
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- MY CERTIFICATES PAGE (Student)          -->
+        <!-- ======================================== -->
+        <section class="page" id="myCertificatesPage">
+            <div class="page-header">
+                <h1><i class="fas fa-award"></i> My Certificates</h1>
+            </div>
+            <div class="certificates-grid" id="myCertificatesGrid">
+                <!-- Dynamic content -->
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- EVENT MANAGEMENT PAGE (Admin)           -->
+        <!-- ======================================== -->
+        <section class="page" id="manageEventPage">
+            <div class="page-header">
+                <h1>
+                    <i class="fas fa-cog"></i>
+                    Manage Event: <span id="manageEventTitle"></span>
+                </h1>
+                <button class="btn btn-secondary" onclick="navigateTo('eventsPage')">
+                    <i class="fas fa-arrow-left"></i> Back to Events
+                </button>
+            </div>
+
+            <!-- Event Tabs -->
+            <div class="tabs">
+                <button class="tab active"
+                        onclick="switchTab('participantsTab', this)">
+                    <i class="fas fa-users"></i> Participants
+                </button>
+                <button class="tab"
+                        onclick="switchTab('attendanceTab', this)">
+                    <i class="fas fa-clipboard-check"></i> Attendance
+                </button>
+                <button class="tab"
+                        onclick="switchTab('certificatesTab', this)">
+                    <i class="fas fa-certificate"></i> Certificates
+                </button>
+                <button class="tab"
+                        onclick="switchTab('analyticsTab', this)">
+                    <i class="fas fa-chart-bar"></i> Analytics
+                </button>
+            </div>
+
+            <!-- Participants Tab -->
+            <div class="tab-content active" id="participantsTab">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Course</th>
+                                <th>Year</th>
+                                <th>Registered</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="participantsTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Attendance Tab -->
+            <div class="tab-content" id="attendanceTab">
+                <div class="attendance-actions">
+                    <button class="btn btn-success"
+                            onclick="markAllPresent()">
+                        <i class="fas fa-check-double"></i> Mark All Present
+                    </button>
+                    <button class="btn btn-primary"
+                            onclick="saveAttendance()">
+                        <i class="fas fa-save"></i> Save Attendance
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox"
+                                           id="selectAllAttendance"
+                                           onchange="toggleAllAttendance()">
+                                </th>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Status</th>
+                                <th>Check-in Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Certificates Tab -->
+            <div class="tab-content" id="certificatesTab">
+                <div class="certificate-actions">
+                    <button class="btn btn-primary"
+                            onclick="bulkGenerateCertificates()">
+                        <i class="fas fa-file-pdf"></i>
+                        Generate All Certificates
+                    </button>
+                </div>
+                <div id="certificatesList">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div class="tab-content" id="analyticsTab">
+                <div class="analytics-grid">
+                    <div class="stat-card stat-primary">
+                        <h4>Registered</h4>
+                        <h2 id="analyticRegistered">0</h2>
+                    </div>
+                    <div class="stat-card stat-success">
+                        <h4>Present</h4>
+                        <h2 id="analyticPresent">0</h2>
+                    </div>
+                    <div class="stat-card stat-danger">
+                        <h4>Absent</h4>
+                        <h2 id="analyticAbsent">0</h2>
+                    </div>
+                    <div class="stat-card stat-warning">
+                        <h4>Attendance Rate</h4>
+                        <h2 id="analyticRate">0%</h2>
+                    </div>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Gender Distribution</h3>
+                        <canvas id="genderChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Course Distribution</h3>
+                        <canvas id="courseChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>Registration Timeline</h3>
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- ANALYTICS PAGE (Admin - Overall)        -->
+        <!-- ======================================== -->
+        <section class="page" id="analyticsPage">
+            <div class="page-header">
+                <h1>
+                    <i class="fas fa-chart-line"></i> System Analytics
+                </h1>
+            </div>
+            <div class="card">
+                <h3>
+                    <i class="fas fa-trophy"></i> Event Popularity Ranking
+                </h3>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Event</th>
+                                <th>Category</th>
+                                <th>Registrations</th>
+                                <th>Attendees</th>
+                                <th>Attendance Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody id="popularEventsTable">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Monthly Events Trend</h3>
+                    <canvas id="monthlyTrendChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Registration Trend</h3>
+                    <canvas id="regTrendChart"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================================ -->
+    <!-- CREATE/EDIT EVENT MODAL                     -->
+    <!-- ============================================ -->
+    <div class="modal-overlay hidden" id="eventModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="eventModalTitle">
+                    <i class="fas fa-calendar-plus"></i> Create New Event
+                </h2>
+                <button class="modal-close" onclick="closeEventModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="eventForm" class="modal-body">
+                <input type="hidden" id="editEventId">
+                <div class="form-group">
+                    <label>Event Title *</label>
+                    <input type="text" id="eventTitle"
+                           placeholder="Enter event title" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="eventDescription" rows="3"
+                              placeholder="Event description"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Event Date *</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="eventCategory">
+                            <option value="Seminar">Seminar</option>
+                            <option value="Workshop">Workshop</option>
+                            <option value="Competition">Competition</option>
+                            <option value="Academic">Academic</option>
+                            <option value="Cultural">Cultural</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Start Time *</label>
+                        <input type="time" id="eventStartTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label>End Time *</label>
+                        <input type="time" id="eventEndTime" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Location *</label>
+                    <input type="text" id="eventLocation"
+                           placeholder="Event venue" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Speaker</label>
+                        <input type="text" id="eventSpeaker"
+                               placeholder="Speaker name">
+                    </div>
+                    <div class="form-group">
+                        <label>Organizer</label>
+                        <input type="text" id="eventOrganizer"
+                               placeholder="Organizing department">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Max Participants *</label>
+                        <input type="number" id="eventMaxParticipants"
+                               value="100" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Registration Deadline *</label>
+                        <input type="datetime-local"
+                               id="eventDeadline" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Event Image/Banner</label>
+                    <input type="file" id="eventImage"
+                           accept="image/*" class="file-input">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            onclick="closeEventModal()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Event
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- EVENT DETAIL MODAL                          -->
+    <!-- ============================================ -->
+    <div class="modal-overlay hidden" id="eventDetailModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h2 id="detailEventTitle"></h2>
+                <button class="modal-close"
+                        onclick="closeEventDetailModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="eventDetailContent">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- NOTIFICATION TOAST                          -->
+    <!-- ============================================ -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ============================================ -->
+    <!-- SCRIPTS                                     -->
+    <!-- ============================================ -->
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/registration.js"></script>
+    <script src="js/attendance.js"></script>
+    <script src="js/certificates.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
